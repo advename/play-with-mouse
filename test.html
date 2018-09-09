@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        div {
+            background: red;
+            height: 20px;
+            width: 40px;
+            margin: 30px;
+            display: block;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div></div>
+
+    <script>
+        const box = document.querySelector("div");
+
+        console.log(window.getComputedStyle(box).height)
+        console.log(box.getBoundingClientRect().height)
+
+    </script>
+</body>
+
+</html>

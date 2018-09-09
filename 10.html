@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moving Mouse</title>
+    <style>
+        body {
+            background-color: papayawhip;
+        }
+
+        #red {
+            width: 20vw;
+            height: 20vw;
+            position: absolute;
+            background-color: coral;
+            color: white;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="red"></div>
+    <script>
+        const red = document.querySelector("#red");
+        let mouseX, mouseY;
+        let centerX = window.innerWidth / 2; //
+        let centerY = window.innerHeight / 2;
+        let rX, rY;
+        let cX = red.clientWidth / 2;
+        let cY = red.clientHeight / 2;
+        let steps = 15;
+
+        document.addEventListener("DOMContentLoaded", init);
+        function init() {
+            red.style.left = centerX - (red.clientWidth / 2) + "px"; //center
+            red.style.top = centerY - (red.clientHeight / 2) + "px";
+            document.addEventListener("mousemove", mouseMove);
+            moveRAF();
+        }
+
+
+
+        function mouseMove(e) {
+
+            mouseY = e.pageY;
+            mouseX = e.pageX;
+
+        }
+
+        // this is like a setInterval moving the lasting px each time per step
+        function moveRAF() {
+            xp = red.offsetLeft;
+            yp = red.offsetTop;
+
+            xp += ((centerX - mouseX) / steps);
+            yp += ((centerY - mouseY) / steps);
+
+            if (xp < 0) {
+                xp = 0;
+            }
+            if (yp < 0) {
+                yp = 0;
+            }
+            if (xp > window.innerWidth - red.offsetWidth) {
+                xp = window.innerWidth - red.offsetWidth;
+            }
+            if (yp > window.innerHeight - red.offsetHeight) {
+                yp = window.innerHeight - red.offsetHeight;
+            }
+
+            red.style.left = xp + "px";
+            red.style.top = yp + "px";
+            requestAnimationFrame(moveRAF);
+        }
+
+
+    </script>
+</body>
+
+</html>

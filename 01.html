@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moving Mouse</title>
+    <style>
+        body {
+            background-color: papayawhip;
+        }
+
+        #red {
+            width: 20vw;
+            height: 20vw;
+            position: absolute;
+            background-color: coral;
+            color: white;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="red"></div>
+    <script>
+        const red = document.querySelector("#red");
+
+        document.addEventListener("DOMContentLoaded", init);
+        function init() {
+            document.addEventListener("mousemove", mouseMove);
+        }
+        function mouseMove(e) {
+            //console.log(e);
+            red.textContent = 'e.pageX = ' + e.pageX + "\n" +
+                'e.pageY = ' + e.pageY + "\n";
+            red.style.top = e.pageY + 'px';
+            red.style.left = e.pageX + 'px';
+            console.log(red.style.height);
+        }
+
+
+    </script>
+</body>
+
+</html>

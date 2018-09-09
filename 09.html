@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moving Mouse</title>
+    <style>
+        body {
+            overflow: hidden;
+            background: papayawhip;
+        }
+
+        #red {
+            width: calc(120vw*2);
+            height: calc(86vw*2);
+            position: absolute;
+            background-image: url(peach.gif);
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="red"></div>
+    <script>
+        const red = document.querySelector("#red");
+        const wH = window.innerHeight;
+        const wW = window.innerWidth;
+        const rH = red.clientHeight;
+        const rW = red.clientWidth;
+
+
+        document.addEventListener("DOMContentLoaded", init);
+        function init() {
+            document.addEventListener("mousemove", mouseMove);
+        }
+        function mouseMove(e) {
+            //console.log(e);
+
+            let redY = ((window.innerHeight - e.pageY) / window.innerHeight) * (window.innerHeight - red.clientHeight);
+            console.log(((window.innerHeight - e.pageY) / window.innerHeight) + " * " + (window.innerHeight - red.clientHeight) + " = " + redY);
+            let redX = ((window.innerWidth - e.pageX) / window.innerWidth) * (window.innerWidth - red.clientWidth);
+            console.log(redY);
+            red.style.top = redY + "px";
+            red.style.left = redX + "px";
+        }
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: papayawhip;
+            width: 100vw;
+            max-width: 100%;
+            overflow-x: hidden;
+
+        }
+
+        #bg {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            display: block;
+            margin-top: 30vh;
+            height: 250px;
+            width: calc(3 * 950px);
+            left: -20px;
+
+        }
+
+        .bg-all {
+            height: 151px;
+            width: 950px;
+            background-image: url(background.png);
+            background-size: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #bg1 {}
+
+        #bg2 {
+            left: 950px;
+        }
+
+        #bg3 {
+            left: calc(2*950px);
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="bg">
+        <div id="bg1" class="bg-all"></div>
+        <div id="bg2" class="bg-all"></div>
+        <div id="bg3" class="bg-all"></div>
+    </div>
+
+
+    <script>
+        const bgAll = document.querySelectorAll("#bg .bg-all");
+        const bg = document.querySelector("#bg");
+        const body = document.querySelector("body");
+        let bgWidth, mouseX;
+        let moving = false;
+        let RAF;
+        let steps = 10;
+        let bgX;
+
+        window.addEventListener("load", init);
+
+        function init() {
+            bgWidth = bg.offsetWidth;
+            document.addEventListener('mousemove', mouseMove);
+            document.addEventListener('click', toggleRAF);
+            bgX = bg.offsetLeft;
+        }
+
+        function toggleRAF() {
+            if (moving) {
+                cancelAnimationFrame(RAF)
+                body.style.removeProperty('background');
+            }
+            else {
+                RAF = requestAnimationFrame(moveRAF);
+                body.style.background = "#fffaf2";
+            }
+            moving = !moving
+        }
+
+        function mouseMove(e) {
+            mouseX = e.pageX;
+        }
+
+        function moveRAF() {
+            let scrolling = ((window.innerWidth / 2) - mouseX) / steps;
+            console.log(scrolling);
+
+            bgX = bg.offsetLeft;
+            bgX += scrolling;
+
+            if (Math.abs(bg.offsetLeft) >= (bgWidth - window.innerWidth)) {
+                bgX = bg.offsetLeft + bgWidth / 3;
+            }
+            if (bg.offsetLeft >= 0) {
+                bgX = -bgWidth / 3;
+            }
+            bg.style.left = bgX + "px";
+
+            RAF = requestAnimationFrame(moveRAF);
+        }
+
+
+        const box = document.querySelector("div");
+        console.log(box.style.height); // returns nothing
+        console.log(box.getBoundingClientRect().height); //returns 10px
+
+
+
+
+    </script>
+
+</body>
+
+</html>

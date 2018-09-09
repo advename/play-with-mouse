@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moving Mouse</title>
+    <style>
+        body {
+            background-color: papayawhip;
+        }
+
+        #red {
+            width: 20vw;
+            height: 20vw;
+            position: absolute;
+            background-color: coral;
+            color: white;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="red"></div>
+    <script>
+        const red = document.querySelector("#red");
+        let centerX = window.innerWidth / 2;
+        let centerY = window.innerHeight / 2;
+        let cx = red.clientWidth / 2;
+        let cy = red.clientHeight / 2;
+        let mouseX = 0,
+            mouseY = 0;
+        let xp = centerX,
+            yp = centerY;
+
+        document.addEventListener("DOMContentLoaded", init);
+        function init() {
+
+            document.addEventListener("mousemove", mouseMove);
+        }
+        function mouseMove(e) {
+            //console.log(e);
+            red.textContent = 'e.pageX = ' + e.pageX + "\n" +
+                'e.pageY = ' + e.pageY + "\n";
+            mouseX = e.pageX;
+            mouseY = e.pageY;
+            xp = centerX - cx + (centerX - mouseX);
+            yp = centerY - cy + (centerY - mouseY);
+            if (xp < 0) {
+                xp = 0;
+            }
+            if (yp < 0) {
+                yp = 0;
+            }
+            if (xp > window.innerWidth - red.clientWidth) {
+                xp = window.innerWidth - red.clientWidth;
+            }
+            if (yp > window.innerHeight - red.clientHeight) {
+                yp = window.innerHeight - red.clientHeight;
+            }
+            red.style.left = xp + "px";
+            red.style.top = yp + "px";
+        }
+
+    </script>
+</body>
+
+</html>

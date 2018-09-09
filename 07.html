@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moving Mouse</title>
+    <style>
+        body {
+            overflow: hidden;
+            background: papayawhip;
+        }
+
+        #red {
+            width: calc(120vw*2);
+            height: calc(86vw*2);
+            position: absolute;
+            background-image: url(peach.gif);
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="red"></div>
+    <script>
+        const red = document.querySelector("#red");
+        let centerX = window.innerWidth / 2;
+        let centerY = window.innerHeight / 2;
+        let cx = red.clientWidth / 2;
+        let cy = red.clientHeight / 2;
+        let mouseX = 0,
+            mouseY = 0;
+        let xp = centerX,
+            yp = centerY;
+
+        document.addEventListener("DOMContentLoaded", init);
+        function init() {
+            red.style.left = centerX - cx; //center
+            red.style.top = centerY - cy; //middle
+            document.addEventListener("mousemove", mouseMove);
+        }
+        function mouseMove(e) {
+            //console.log(e);
+            mouseX = e.pageX;
+            mouseY = e.pageY;
+            xp = (mouseX / window.innerWidth) * (window.innerWidth - red.clientWidth);
+            yp = (mouseY / window.innerHeight) * (window.innerHeight - red.clientHeight);
+
+
+            red.style.left = xp + "px";
+            red.style.top = yp + "px";
+
+        }
+
+
+    </script>
+</body>
+
+</html>

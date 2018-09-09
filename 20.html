@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Magnifying glass</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: papayawhip;
+            width: 100vw;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        #image-container {
+            position: relative;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+
+        }
+
+
+        #image {
+            width: 100vmin;
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+            cursor: none;
+
+        }
+
+        #magni {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 2px solid black;
+            border-radius: 50%;
+            background-image: url(yoga.jpeg);
+            background-size: auto 200vmin;
+            background-position: 150px 250px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="image-container">
+        <img id="image" src="yoga.jpeg" alt="Peach">
+        <div id="magni">
+        </div>
+    </div>
+
+
+    <script>
+        const image = document.querySelector("#image");
+        const imageContainer = document.querySelector("#image-container");
+        const magni = document.querySelector("#magni");
+        let mouseX, mouseY, iW, iH, iX, iY, canvasX, canvasY, vMin, factor;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(init, 1);
+        });
+        function init() {
+            iW = image.getBoundingClientRect().width;
+            iH = image.getBoundingClientRect().height;
+            iX = image.offsetLeft;
+            iY = image.offsetTop;
+            document.addEventListener('mousemove', movingMouse);
+            const w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+            const h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+            vMin = w > h ? w : h;
+            factor = (vMin * 2) / iW;
+            console.log(factor);
+        }
+
+        function movingMouse(e) {
+            mouseY = e.pageY;
+            mouseX = e.pageX;
+
+            if (mouseX > iX && mouseX < iX + iW - 100 && mouseY > iY && mouseY < iY + iH - 100) {
+                magni.style.top = mouseY + "px";
+                magni.style.left = mouseX + "px";
+                backgroundPos();
+            }
+
+        }
+
+        function backgroundPos() {
+            let posX = (mouseX + iX) * 2 - 50;
+            let posY = (mouseY + iY) * 2 + 300;
+            magni.style.backgroundPosition = -posX + "px " + -posY + "px";
+
+        }
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
